@@ -1,0 +1,7 @@
+aid: tech-data
+url: https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/apis.yml
+modified: '2026-03-24'
+apis: []
+common:
+  - type: Website
+    url: https://www.tech-data.com
