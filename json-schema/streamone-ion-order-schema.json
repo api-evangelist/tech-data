@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tech-data/main/json-schema/streamone-ion-order-schema.json",
+  "title": "StreamOne Ion Order",
+  "description": "Represents a product order placed by a reseller partner through the TD SYNNEX StreamOne Ion platform.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the order."
+    },
+    "accountId": {
+      "type": "string",
+      "description": "The reseller account identifier."
+    },
+    "customerId": {
+      "type": "string",
+      "description": "The end customer identifier this order is placed for."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Draft", "Submitted", "Processing", "Completed", "Cancelled"],
+      "description": "Current status of the order."
+    },
+    "total": {
+      "type": "number",
+      "format": "float",
+      "description": "Total monetary value of the order."
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 currency code for the order total."
+    },
+    "items": {
+      "type": "array",
+      "description": "Line items in the order.",
+      "items": {
+        "$ref": "#/$defs/OrderItem"
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional notes associated with the order."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the order was created."
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the order was last updated."
+    }
+  },
+  "required": ["id", "accountId", "customerId", "status"],
+  "$defs": {
+    "OrderItem": {
+      "type": "object",
+      "title": "Order Item",
+      "description": "A single product line item within an order.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the order item."
+        },
+        "productId": {
+          "type": "string",
+          "description": "The product identifier."
+        },
+        "productName": {
+          "type": "string",
+          "description": "Display name of the product."
+        },
+        "quantity": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of units ordered."
+        },
+        "unitPrice": {
+          "type": "number",
+          "format": "float",
+          "description": "Price per unit."
+        },
+        "totalPrice": {
+          "type": "number",
+          "format": "float",
+          "description": "Total price for this line item."
+        },
+        "provisioningData": {
+          "type": "object",
+          "description": "Vendor-specific provisioning configuration data.",
+          "additionalProperties": true
+        }
+      },
+      "required": ["productId", "quantity"]
+    }
+  }
+}

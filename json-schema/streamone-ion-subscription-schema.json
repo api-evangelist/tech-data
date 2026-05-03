@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tech-data/main/json-schema/streamone-ion-subscription-schema.json",
+  "title": "StreamOne Ion Subscription",
+  "description": "Represents an active cloud service subscription for an end customer on the TD SYNNEX StreamOne Ion platform.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the subscription."
+    },
+    "customerId": {
+      "type": "string",
+      "description": "The end customer identifier."
+    },
+    "productId": {
+      "type": "string",
+      "description": "The product identifier."
+    },
+    "productName": {
+      "type": "string",
+      "description": "Display name of the subscribed product."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Active", "Suspended", "Cancelled", "Expired"],
+      "description": "Current status of the subscription."
+    },
+    "quantity": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of subscription units (seats, licenses, etc.)."
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Subscription start date."
+    },
+    "endDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Subscription end or expiry date."
+    },
+    "renewalDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Next renewal date for the subscription."
+    },
+    "billingPeriod": {
+      "type": "string",
+      "enum": ["Monthly", "Annual", "One-Time"],
+      "description": "Billing cycle for the subscription."
+    }
+  },
+  "required": ["id", "customerId", "productId", "status"]
+}

@@ -1,0 +1,67 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://ion.tdsynnex.com/api/v3/accounts/ACC-001/orders",
+    "headers": {
+      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "customerId": "CUST-12345",
+      "items": [
+        {
+          "productId": "MSFT-M365-BUS-001",
+          "quantity": 25,
+          "provisioningData": {
+            "domainName": "acme.onmicrosoft.com",
+            "licenseType": "Business Premium"
+          }
+        },
+        {
+          "productId": "MSFT-AZURE-01",
+          "quantity": 1,
+          "provisioningData": {
+            "subscriptionType": "Pay-As-You-Go"
+          }
+        }
+      ],
+      "notes": "New hire deployment - Q2 onboarding batch"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json",
+      "Location": "https://ion.tdsynnex.com/api/v3/accounts/ACC-001/orders/ORD-78901"
+    },
+    "body": {
+      "id": "ORD-78901",
+      "accountId": "ACC-001",
+      "customerId": "CUST-12345",
+      "status": "Submitted",
+      "total": 1847.50,
+      "currency": "USD",
+      "items": [
+        {
+          "id": "ITEM-001",
+          "productId": "MSFT-M365-BUS-001",
+          "productName": "Microsoft 365 Business Premium",
+          "quantity": 25,
+          "unitPrice": 22.00,
+          "totalPrice": 550.00
+        },
+        {
+          "id": "ITEM-002",
+          "productId": "MSFT-AZURE-01",
+          "productName": "Microsoft Azure Subscription",
+          "quantity": 1,
+          "unitPrice": 1297.50,
+          "totalPrice": 1297.50
+        }
+      ],
+      "notes": "New hire deployment - Q2 onboarding batch",
+      "createdAt": "2026-05-03T10:15:00Z",
+      "updatedAt": "2026-05-03T10:15:00Z"
+    }
+  }
+}

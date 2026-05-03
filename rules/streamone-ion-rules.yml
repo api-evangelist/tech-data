@@ -1,0 +1,109 @@
+extends: spectral:oas
+rules:
+  # Naming conventions
+  td-synnex-account-id-required:
+    description: All resource paths must include accountId path parameter
+    message: "{{description}}: {{path}}"
+    severity: warn
+    given: "$.paths[?(@property =~ /\\/v3\\/accounts\\//)].get.parameters[?(@.name == 'accountId')]"
+    then:
+      function: truthy
+
+  td-synnex-operationid-kebab-case:
+    description: Operation IDs should be camelCase (StreamOne convention)
+    message: "Operation ID '{{value}}' should use camelCase: {{path}}"
+    severity: warn
+    given: "$.paths.*.*.operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+
+  td-synnex-versioned-paths:
+    description: All API paths must include a version prefix (v3)
+    message: "Path '{{path}}' must begin with /v3/ or /oauth/: {{path}}"
+    severity: error
+    given: "$.paths"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^\\/(v[0-9]+|oauth)\\/"
+
+  td-synnex-pagination-list-operations:
+    description: List operations should support page and pageSize query parameters
+    message: "{{description}}: {{path}}"
+    severity: warn
+    given: "$.paths[?(@property =~ /(?<!\\{[a-zA-Z]+\\})$/)].get"
+    then:
+      - field: operationId
+        function: pattern
+        functionOptions:
+          match: "^(list|get[A-Z])"
+
+  td-synnex-response-200-required:
+    description: Successful GET operations must have a 200 response
+    message: "GET operation missing 200 response: {{path}}"
+    severity: error
+    given: "$.paths.*.get"
+    then:
+      field: responses.200
+      function: truthy
+
+  td-synnex-response-201-for-post:
+    description: POST create operations should return 201 Created
+    message: "POST operation should return 201 Created: {{path}}"
+    severity: warn
+    given: "$.paths.*.post"
+    then:
+      field: responses.201
+      function: defined
+
+  td-synnex-bearer-security-defined:
+    description: Security scheme must be BearerAuth (OAuth2 token)
+    message: "Missing BearerAuth security scheme: {{path}}"
+    severity: error
+    given: "$.components.securitySchemes"
+    then:
+      field: BearerAuth
+      function: truthy
+
+  td-synnex-error-schema:
+    description: Error responses must use the Error schema
+    message: "Error response should reference Error schema: {{path}}"
+    severity: warn
+    given: "$.paths.*.*.responses[?(@property >= '400')].content.application/json.schema"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          properties:
+            $ref:
+              type: string
+
+  td-synnex-tags-required:
+    description: All operations must have tags for grouping
+    message: "Operation missing tags: {{path}}"
+    severity: error
+    given: "$.paths.*.*"
+    then:
+      field: tags
+      function: truthy
+
+  td-synnex-description-required:
+    description: All operations must have descriptions
+    message: "Operation missing description: {{path}}"
+    severity: warn
+    given: "$.paths.*.*"
+    then:
+      field: description
+      function: truthy
+
+  td-synnex-schemas-have-properties:
+    description: Schema objects should define properties
+    message: "Schema '{{path}}' should define properties"
+    severity: warn
+    given: "$.components.schemas[?(@.type == 'object')]"
+    then:
+      field: properties
+      function: truthy

@@ -1,0 +1,380 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "TD SYNNEX Cloud Distribution"
+  description: >-
+    Unified cloud distribution workflow for TD SYNNEX reseller partners. Combines
+    customer lifecycle management, product catalog browsing, order processing, subscription
+    management, and business reporting through the StreamOne Ion API. Designed for partner
+    sales engineers, managed service providers, and cloud resellers who need to automate
+    their TD SYNNEX distribution workflows.
+  tags:
+    - Cloud
+    - Distribution
+    - E-Commerce
+    - Partner
+    - Reseller
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      STREAMONE_ION_BEARER_TOKEN: STREAMONE_ION_BEARER_TOKEN
+      STREAMONE_ION_ACCOUNT_ID: STREAMONE_ION_ACCOUNT_ID
+
+capability:
+  consumes:
+    - import: streamone-ion
+      location: ./shared/streamone-ion.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: cloud-distribution-api
+      description: "Unified REST API for TD SYNNEX cloud distribution partner workflows."
+      resources:
+        - path: /v1/customers
+          name: customers
+          description: "End customer account management"
+          operations:
+            - method: GET
+              name: list-customers
+              description: "List all end customers"
+              call: "streamone-ion.list-customers"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-customer
+              description: "Create a new end customer"
+              call: "streamone-ion.create-customer"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/customers/{customerId}
+          name: customer
+          description: "Single customer operations"
+          operations:
+            - method: GET
+              name: get-customer
+              description: "Get customer details"
+              call: "streamone-ion.get-customer"
+              with:
+                accountId: "rest.accountId"
+                customerId: "rest.customerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/customers/{customerId}/subscriptions
+          name: customer-subscriptions
+          description: "Customer subscription management"
+          operations:
+            - method: GET
+              name: list-subscriptions
+              description: "List customer subscriptions"
+              call: "streamone-ion.list-customer-subscriptions"
+              with:
+                accountId: "rest.accountId"
+                customerId: "rest.customerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/products
+          name: products
+          description: "Product catalog"
+          operations:
+            - method: GET
+              name: list-products
+              description: "Browse available products"
+              call: "streamone-ion.list-products"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/orders
+          name: orders
+          description: "Order management"
+          operations:
+            - method: GET
+              name: list-orders
+              description: "List all orders"
+              call: "streamone-ion.list-account-orders"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-order
+              description: "Create a new order"
+              call: "streamone-ion.create-order"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/orders/{orderId}
+          name: order
+          description: "Single order operations"
+          operations:
+            - method: GET
+              name: get-order
+              description: "Get order details"
+              call: "streamone-ion.get-order"
+              with:
+                accountId: "rest.accountId"
+                orderId: "rest.orderId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: cancel-order
+              description: "Cancel an order"
+              call: "streamone-ion.cancel-order"
+              with:
+                accountId: "rest.accountId"
+                orderId: "rest.orderId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/carts
+          name: carts
+          description: "Shopping cart management"
+          operations:
+            - method: GET
+              name: list-carts
+              description: "List shopping carts"
+              call: "streamone-ion.list-carts"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-cart
+              description: "Create a new cart"
+              call: "streamone-ion.create-cart"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/reports
+          name: reports
+          description: "Business and billing reports"
+          operations:
+            - method: GET
+              name: list-reports
+              description: "List available reports"
+              call: "streamone-ion.list-reports"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/reports/{reportId}/data
+          name: report-data
+          description: "Report data retrieval"
+          operations:
+            - method: GET
+              name: get-report-data
+              description: "Get data for a report"
+              call: "streamone-ion.get-report-data"
+              with:
+                accountId: "rest.accountId"
+                reportId: "rest.reportId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9080
+      namespace: cloud-distribution-mcp
+      transport: http
+      description: "MCP server for AI-assisted TD SYNNEX cloud distribution partner workflows."
+      tools:
+        - name: list-customers
+          description: "List all end customers for the reseller account"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "streamone-ion.list-customers"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-customer
+          description: "Get details for a specific end customer"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "streamone-ion.get-customer"
+          with:
+            accountId: "tools.accountId"
+            customerId: "tools.customerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-customer
+          description: "Create a new end customer account"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "streamone-ion.create-customer"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-subscriptions
+          description: "List active subscriptions for a customer"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "streamone-ion.list-customer-subscriptions"
+          with:
+            accountId: "tools.accountId"
+            customerId: "tools.customerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-products
+          description: "Browse the TD SYNNEX product catalog"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "streamone-ion.list-products"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-product
+          description: "Get details for a specific product"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "streamone-ion.get-product"
+          with:
+            accountId: "tools.accountId"
+            productId: "tools.productId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-orders
+          description: "List all orders for the account"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "streamone-ion.list-account-orders"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-order
+          description: "Get details for a specific order"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "streamone-ion.get-order"
+          with:
+            accountId: "tools.accountId"
+            orderId: "tools.orderId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-order
+          description: "Create a new product order for a customer"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "streamone-ion.create-order"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: cancel-order
+          description: "Cancel an unprocessed order"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "streamone-ion.cancel-order"
+          with:
+            accountId: "tools.accountId"
+            orderId: "tools.orderId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-cart
+          description: "Create a new shopping cart for order building"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "streamone-ion.create-cart"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: add-cart-item
+          description: "Add a product to a shopping cart"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "streamone-ion.add-cart-item"
+          with:
+            accountId: "tools.accountId"
+            cartId: "tools.cartId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: checkout-cart
+          description: "Check out a cart to create an order"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "streamone-ion.checkout-cart"
+          with:
+            accountId: "tools.accountId"
+            cartId: "tools.cartId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-reports
+          description: "List available billing and business reports"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "streamone-ion.list-reports"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-report-data
+          description: "Get data from a billing or business report"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "streamone-ion.get-report-data"
+          with:
+            accountId: "tools.accountId"
+            reportId: "tools.reportId"
+          outputParameters:
+            - type: object
+              mapping: "$."

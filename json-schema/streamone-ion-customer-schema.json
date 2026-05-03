@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tech-data/main/json-schema/streamone-ion-customer-schema.json",
+  "title": "StreamOne Ion Customer",
+  "description": "Represents an end customer account managed by a TD SYNNEX reseller through the StreamOne Ion platform.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the customer account."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the customer organization."
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Primary email address for the customer account."
+    },
+    "phone": {
+      "type": "string",
+      "description": "Primary phone number for the customer account."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Active", "Inactive", "Suspended"],
+      "description": "Current status of the customer account."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the customer account was created."
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the customer account was last updated."
+    },
+    "address": {
+      "$ref": "#/$defs/Address"
+    }
+  },
+  "required": ["id", "name", "email", "status"],
+  "$defs": {
+    "Address": {
+      "type": "object",
+      "title": "Address",
+      "description": "Physical address for the customer.",
+      "properties": {
+        "street": {
+          "type": "string",
+          "description": "Street address line."
+        },
+        "city": {
+          "type": "string",
+          "description": "City name."
+        },
+        "state": {
+          "type": "string",
+          "description": "State or province."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "Postal or ZIP code."
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code."
+        }
+      }
+    }
+  }
+}

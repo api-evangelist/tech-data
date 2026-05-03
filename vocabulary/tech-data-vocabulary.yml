@@ -1,0 +1,193 @@
+name: Tech Data Vocabulary
+description: >-
+  Domain vocabulary for TD SYNNEX (formerly Tech Data) cloud distribution platform,
+  covering reseller partner operations, cloud service management, and the StreamOne Ion
+  API ecosystem.
+tags:
+  - Cloud
+  - Distribution
+  - E-Commerce
+  - Partner
+  - Reseller
+created: '2026-05-03'
+modified: '2026-05-03'
+terms:
+  - term: Account
+    definition: >-
+      A reseller partner account on the StreamOne Ion platform, identified by an
+      accountId. All API operations are scoped to an account.
+    synonyms:
+      - Reseller Account
+      - Partner Account
+    relatedTerms:
+      - Customer
+      - Order
+
+  - term: Customer
+    definition: >-
+      An end customer organization managed by a reseller through the StreamOne Ion
+      platform. Customers are the ultimate consumers of cloud services ordered through
+      the platform.
+    synonyms:
+      - End Customer
+      - Tenant
+      - Client
+    relatedTerms:
+      - Account
+      - Subscription
+      - Order
+
+  - term: Subscription
+    definition: >-
+      An active cloud service agreement provisioned for a customer, with defined
+      billing period, quantity (seats/licenses), and renewal date. Subscriptions
+      span Microsoft, Google, and AWS cloud services.
+    synonyms:
+      - License
+      - Service Agreement
+    relatedTerms:
+      - Customer
+      - Product
+      - Renewal
+
+  - term: Order
+    definition: >-
+      A transaction record representing the purchase or modification of cloud products
+      for a customer. Orders progress through Draft, Submitted, Processing, Completed,
+      and Cancelled statuses.
+    synonyms:
+      - Purchase Order
+      - Transaction
+    relatedTerms:
+      - OrderItem
+      - Cart
+      - Customer
+
+  - term: OrderItem
+    definition: >-
+      A line item within an order representing a specific product with quantity and
+      pricing. May include vendor-specific provisioning configuration data.
+    synonyms:
+      - Line Item
+      - SKU
+    relatedTerms:
+      - Order
+      - Product
+
+  - term: Product
+    definition: >-
+      A cloud service or software offering available through the TD SYNNEX catalog.
+      Products are organized by vendor, category, and vertical market. Examples
+      include Microsoft 365 licenses, Azure subscriptions, and Google Workspace.
+    synonyms:
+      - SKU
+      - Service
+      - License
+    relatedTerms:
+      - Vendor
+      - Category
+      - Vertical
+
+  - term: Vendor
+    definition: >-
+      A technology provider whose products are distributed through TD SYNNEX, such
+      as Microsoft, Google, AWS, Cisco, or VMware.
+    synonyms:
+      - Publisher
+      - ISV
+      - Provider
+    relatedTerms:
+      - Product
+
+  - term: Cart
+    definition: >-
+      A temporary collection of products selected for purchase before an order is
+      submitted. Carts are checked out to create formal orders.
+    synonyms:
+      - Shopping Cart
+      - Basket
+    relatedTerms:
+      - CartItem
+      - Order
+
+  - term: Provisioning
+    definition: >-
+      The process of configuring and activating a cloud service for a customer after
+      an order is placed. Provisioning templates define the configuration inputs
+      required per vendor and product.
+    synonyms:
+      - Activation
+      - Deployment
+    relatedTerms:
+      - ProvisioningTemplate
+      - Order
+
+  - term: Cloud Provider
+    definition: >-
+      A hyperscaler cloud platform (Microsoft, Google, AWS) through which customer
+      services are provisioned. Customer cloud provider accounts link the customer
+      identity with the cloud platform.
+    synonyms:
+      - Hyperscaler
+      - Cloud Platform
+    relatedTerms:
+      - Customer
+      - Subscription
+
+  - term: Reseller
+    definition: >-
+      A technology solutions provider (VAR, MSP, or integrator) who purchases cloud
+      services through TD SYNNEX to resell or manage for end customers.
+    synonyms:
+      - VAR
+      - MSP
+      - Channel Partner
+    relatedTerms:
+      - Account
+      - Customer
+
+  - term: Report
+    definition: >-
+      A structured data export providing billing, usage, or business intelligence
+      information about orders, subscriptions, and revenue across the reseller's
+      customer base.
+    synonyms:
+      - Business Report
+      - Billing Report
+    relatedTerms:
+      - Account
+      - Subscription
+
+  - term: OAuth Token
+    definition: >-
+      A bearer access token obtained via OAuth 2.0 refresh token exchange, used to
+      authenticate API requests to StreamOne Ion. Tokens expire after 7200 seconds.
+    synonyms:
+      - Access Token
+      - Bearer Token
+    relatedTerms:
+      - Refresh Token
+      - Authentication
+
+  - term: StreamOne Ion
+    definition: >-
+      The TD SYNNEX cloud distribution platform and API framework that allows
+      reseller partners to programmatically manage customers, products, orders,
+      and subscriptions across multiple cloud vendors.
+    synonyms:
+      - StreamOne
+      - Ion Platform
+    relatedTerms:
+      - Account
+      - API
+
+  - term: Digital Bridge
+    definition: >-
+      TD SYNNEX's integration platform providing enterprise-grade REST APIs, pre-built
+      connectors, and low-code integration tools for streamlining partner workflows
+      with live pricing, inventory, and order data.
+    synonyms:
+      - Digital Bridge Platform
+    relatedTerms:
+      - API
+      - Integration

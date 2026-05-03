@@ -1,0 +1,58 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://ion.tdsynnex.com/api/v3/accounts/ACC-001/customers?page=1&pageSize=10",
+    "headers": {
+      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...",
+      "Content-Type": "application/json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": [
+        {
+          "id": "CUST-12345",
+          "name": "Acme Corporation",
+          "email": "it@acme.com",
+          "phone": "+1-555-123-4567",
+          "status": "Active",
+          "createdAt": "2025-01-15T09:30:00Z",
+          "updatedAt": "2026-03-01T14:22:00Z",
+          "address": {
+            "street": "123 Main Street",
+            "city": "Austin",
+            "state": "TX",
+            "postalCode": "78701",
+            "country": "US"
+          }
+        },
+        {
+          "id": "CUST-12346",
+          "name": "Globex Industries",
+          "email": "admin@globex.com",
+          "phone": "+1-555-987-6543",
+          "status": "Active",
+          "createdAt": "2025-03-22T11:00:00Z",
+          "updatedAt": "2025-11-30T08:15:00Z",
+          "address": {
+            "street": "456 Corporate Blvd",
+            "city": "Seattle",
+            "state": "WA",
+            "postalCode": "98101",
+            "country": "US"
+          }
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 10,
+        "totalRecords": 47,
+        "totalPages": 5
+      }
+    }
+  }
+}

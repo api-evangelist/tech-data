@@ -1,0 +1,71 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "td": "https://raw.githubusercontent.com/api-evangelist/tech-data/main/json-ld/tech-data-context.jsonld#",
+    "schema": "https://schema.org/",
+
+    "Customer": "schema:Organization",
+    "customerId": "schema:identifier",
+    "customerName": "schema:name",
+    "customerEmail": "schema:email",
+    "customerPhone": "schema:telephone",
+    "customerStatus": "td:customerStatus",
+    "customerAddress": "schema:address",
+
+    "Order": "schema:Order",
+    "orderId": "schema:orderNumber",
+    "orderStatus": "schema:orderStatus",
+    "orderDate": "schema:orderDate",
+    "orderTotal": "schema:price",
+    "orderCurrency": "schema:priceCurrency",
+    "orderItems": "schema:orderedItem",
+
+    "OrderItem": "schema:OrderItem",
+    "orderItemId": "schema:identifier",
+    "productId": "schema:identifier",
+    "productName": "schema:name",
+    "quantity": "schema:orderQuantity",
+    "unitPrice": "schema:price",
+    "totalPrice": "schema:totalPrice",
+
+    "Subscription": "schema:Subscription",
+    "subscriptionId": "schema:identifier",
+    "subscriptionStatus": "td:subscriptionStatus",
+    "subscriptionStartDate": "schema:validFrom",
+    "subscriptionEndDate": "schema:validThrough",
+    "billingPeriod": "td:billingPeriod",
+    "renewalDate": "td:renewalDate",
+
+    "Product": "schema:Product",
+    "vendorId": "schema:identifier",
+    "vendorName": "schema:name",
+    "productCategory": "schema:category",
+    "productVertical": "td:vertical",
+    "productPrice": "schema:price",
+    "productCurrency": "schema:priceCurrency",
+
+    "Cart": "schema:ShoppingCart",
+    "cartId": "schema:identifier",
+    "cartStatus": "td:cartStatus",
+    "cartTotal": "schema:price",
+    "cartItems": "schema:containsProduct",
+
+    "Report": "schema:Report",
+    "reportId": "schema:identifier",
+    "reportName": "schema:name",
+    "reportCategory": "schema:about",
+
+    "Address": "schema:PostalAddress",
+    "street": "schema:streetAddress",
+    "city": "schema:addressLocality",
+    "state": "schema:addressRegion",
+    "postalCode": "schema:postalCode",
+    "country": "schema:addressCountry",
+
+    "Pagination": "td:Pagination",
+    "page": "td:page",
+    "pageSize": "td:pageSize",
+    "totalRecords": "td:totalRecords",
+    "totalPages": "td:totalPages"
+  }
+}
