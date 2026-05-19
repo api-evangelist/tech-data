@@ -1,0 +1,236 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: TD SYNNEX StreamOne Ion API — Reports
+  description: 'TD SYNNEX StreamOne Ion API — Reports. 5 operations. Lead operation: List Reports. Self-contained Naftiko
+    capability covering one Tech Data business surface.'
+  tags:
+  - Tech Data
+  - Reports
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TECH_DATA_API_KEY: TECH_DATA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: streamone-ion-reports
+    baseUri: https://ion.tdsynnex.com/api
+    description: TD SYNNEX StreamOne Ion API — Reports business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-accounts-accountId-reports
+      path: /v3/accounts/{accountId}/reports
+      operations:
+      - name: listreports
+        method: GET
+        description: List Reports
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-accounts-accountId-reports-metadata
+      path: /v3/accounts/{accountId}/reports/metadata
+      operations:
+      - name: getreportsmetadata
+        method: GET
+        description: Get Reports Metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-accounts-accountId-reports-reportId
+      path: /v3/accounts/{accountId}/reports/{reportId}
+      operations:
+      - name: getreport
+        method: GET
+        description: Get Report
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-accounts-accountId-reports-reportId-data
+      path: /v3/accounts/{accountId}/reports/{reportId}/data
+      operations:
+      - name: getreportdata
+        method: GET
+        description: Get Report Data
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: startDate
+          in: query
+          type: string
+          description: Filter data by start date (YYYY-MM-DD).
+        - name: endDate
+          in: query
+          type: string
+          description: Filter data by end date (YYYY-MM-DD).
+        - name: page
+          in: query
+          type: integer
+        - name: pageSize
+          in: query
+          type: integer
+    - name: v3-accounts-accountId-reports-reportId-data-csv
+      path: /v3/accounts/{accountId}/reports/{reportId}/data/csv
+      operations:
+      - name: getreportdatacsv
+        method: GET
+        description: Export Report Data as CSV
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: startDate
+          in: query
+          type: string
+        - name: endDate
+          in: query
+          type: string
+    authentication:
+      type: bearer
+      token: '{{env.TECH_DATA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: streamone-ion-reports-rest
+    port: 8080
+    description: REST adapter for TD SYNNEX StreamOne Ion API — Reports. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v3/accounts/{accountid}/reports
+      name: v3-accounts-accountid-reports
+      description: REST surface for v3-accounts-accountId-reports.
+      operations:
+      - method: GET
+        name: listreports
+        description: List Reports
+        call: streamone-ion-reports.listreports
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/accounts/{accountid}/reports/metadata
+      name: v3-accounts-accountid-reports-metadata
+      description: REST surface for v3-accounts-accountId-reports-metadata.
+      operations:
+      - method: GET
+        name: getreportsmetadata
+        description: Get Reports Metadata
+        call: streamone-ion-reports.getreportsmetadata
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/accounts/{accountid}/reports/{reportid}
+      name: v3-accounts-accountid-reports-reportid
+      description: REST surface for v3-accounts-accountId-reports-reportId.
+      operations:
+      - method: GET
+        name: getreport
+        description: Get Report
+        call: streamone-ion-reports.getreport
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/accounts/{accountid}/reports/{reportid}/data
+      name: v3-accounts-accountid-reports-reportid-data
+      description: REST surface for v3-accounts-accountId-reports-reportId-data.
+      operations:
+      - method: GET
+        name: getreportdata
+        description: Get Report Data
+        call: streamone-ion-reports.getreportdata
+        with:
+          startDate: rest.startDate
+          endDate: rest.endDate
+          page: rest.page
+          pageSize: rest.pageSize
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/accounts/{accountid}/reports/{reportid}/data/csv
+      name: v3-accounts-accountid-reports-reportid-data-csv
+      description: REST surface for v3-accounts-accountId-reports-reportId-data-csv.
+      operations:
+      - method: GET
+        name: getreportdatacsv
+        description: Export Report Data as CSV
+        call: streamone-ion-reports.getreportdatacsv
+        with:
+          startDate: rest.startDate
+          endDate: rest.endDate
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: streamone-ion-reports-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for TD SYNNEX StreamOne Ion API — Reports. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-reports
+      description: List Reports
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: streamone-ion-reports.listreports
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-reports-metadata
+      description: Get Reports Metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: streamone-ion-reports.getreportsmetadata
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-report
+      description: Get Report
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: streamone-ion-reports.getreport
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-report-data
+      description: Get Report Data
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: streamone-ion-reports.getreportdata
+      with:
+        startDate: tools.startDate
+        endDate: tools.endDate
+        page: tools.page
+        pageSize: tools.pageSize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: export-report-data-csv
+      description: Export Report Data as CSV
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: streamone-ion-reports.getreportdatacsv
+      with:
+        startDate: tools.startDate
+        endDate: tools.endDate
+      outputParameters:
+      - type: object
+        mapping: $.

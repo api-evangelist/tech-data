@@ -1,0 +1,179 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: TD SYNNEX StreamOne Ion API — Products
+  description: 'TD SYNNEX StreamOne Ion API — Products. 3 operations. Lead operation: List Products. Self-contained Naftiko
+    capability covering one Tech Data business surface.'
+  tags:
+  - Tech Data
+  - Products
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TECH_DATA_API_KEY: TECH_DATA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: streamone-ion-products
+    baseUri: https://ion.tdsynnex.com/api
+    description: TD SYNNEX StreamOne Ion API — Products business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-accounts-accountId-products
+      path: /v3/accounts/{accountId}/products
+      operations:
+      - name: listproducts
+        method: GET
+        description: List Products
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+        - name: pageSize
+          in: query
+          type: integer
+        - name: vendorId
+          in: query
+          type: string
+          description: Filter by vendor identifier.
+        - name: category
+          in: query
+          type: string
+          description: Filter by product category.
+    - name: v3-accounts-accountId-products-verticals
+      path: /v3/accounts/{accountId}/products/verticals
+      operations:
+      - name: getproductverticals
+        method: POST
+        description: Get Product Verticals
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-accounts-accountId-products-productId
+      path: /v3/accounts/{accountId}/products/{productId}
+      operations:
+      - name: getproduct
+        method: GET
+        description: Get Product
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: productId
+          in: path
+          type: string
+          description: The unique product identifier.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TECH_DATA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: streamone-ion-products-rest
+    port: 8080
+    description: REST adapter for TD SYNNEX StreamOne Ion API — Products. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v3/accounts/{accountid}/products
+      name: v3-accounts-accountid-products
+      description: REST surface for v3-accounts-accountId-products.
+      operations:
+      - method: GET
+        name: listproducts
+        description: List Products
+        call: streamone-ion-products.listproducts
+        with:
+          page: rest.page
+          pageSize: rest.pageSize
+          vendorId: rest.vendorId
+          category: rest.category
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/accounts/{accountid}/products/verticals
+      name: v3-accounts-accountid-products-verticals
+      description: REST surface for v3-accounts-accountId-products-verticals.
+      operations:
+      - method: POST
+        name: getproductverticals
+        description: Get Product Verticals
+        call: streamone-ion-products.getproductverticals
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/accounts/{accountid}/products/{productid}
+      name: v3-accounts-accountid-products-productid
+      description: REST surface for v3-accounts-accountId-products-productId.
+      operations:
+      - method: GET
+        name: getproduct
+        description: Get Product
+        call: streamone-ion-products.getproduct
+        with:
+          productId: rest.productId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: streamone-ion-products-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for TD SYNNEX StreamOne Ion API — Products. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-products
+      description: List Products
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: streamone-ion-products.listproducts
+      with:
+        page: tools.page
+        pageSize: tools.pageSize
+        vendorId: tools.vendorId
+        category: tools.category
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-product-verticals
+      description: Get Product Verticals
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: streamone-ion-products.getproductverticals
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-product
+      description: Get Product
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: streamone-ion-products.getproduct
+      with:
+        productId: tools.productId
+      outputParameters:
+      - type: object
+        mapping: $.
