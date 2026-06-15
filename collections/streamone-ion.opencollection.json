@@ -1,0 +1,1102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TD SYNNEX StreamOne Ion API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate OAuth Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ion.tdsynnex.com/api/oauth/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchange a refresh token for an OAuth 2.0 bearer access token. Access tokens expire after 7200 seconds (2 hours). Refresh tokens are valid for 32 days and are single-use."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Customers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/customers",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter customers by status."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all end customers for the reseller account."
+        },
+        {
+          "info": {
+            "name": "Create Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/customers",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new end customer account under the reseller account."
+        },
+        {
+          "info": {
+            "name": "Get Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/customers/:customerId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The customer account identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific end customer."
+        },
+        {
+          "info": {
+            "name": "Update Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/customers/:customerId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The customer account identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing end customer account."
+        },
+        {
+          "info": {
+            "name": "Get Customer Cloud Profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/customers/:customerId/cloudProfiles",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The customer account identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve cloud provider profiles associated with a customer."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/products",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vendorId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by vendor identifier."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Filter by product category."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of products available to the reseller."
+        },
+        {
+          "info": {
+            "name": "Get Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/products/:productId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The unique product identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific product."
+        },
+        {
+          "info": {
+            "name": "Get Product Verticals",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/products/verticals",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve product vertical classifications and categories."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Account Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/orders",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter orders by status."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all orders for the account."
+        },
+        {
+          "info": {
+            "name": "Create Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/orders",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new order for the account."
+        },
+        {
+          "info": {
+            "name": "Get Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/orders/:orderId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific order."
+        },
+        {
+          "info": {
+            "name": "Update Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/orders/:orderId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing order before it is processed."
+        },
+        {
+          "info": {
+            "name": "Cancel Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/orders/:orderId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order identifier."
+              }
+            ]
+          },
+          "docs": "Cancel an existing order that has not yet been processed."
+        },
+        {
+          "info": {
+            "name": "List Customer Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/customers/:customerId/orders",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The customer account identifier."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve all orders placed for a specific customer."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Customer Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/customers/:customerId/subscriptions",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The customer account identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve all active subscriptions for a specific customer."
+        },
+        {
+          "info": {
+            "name": "Get Customer Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/customers/:customerId/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The customer account identifier."
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique subscription identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific customer subscription."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Carts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Carts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve all shopping carts for the account."
+        },
+        {
+          "info": {
+            "name": "Create Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new shopping cart for the account."
+        },
+        {
+          "info": {
+            "name": "Get Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts/:cartId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "cartId",
+                "value": "",
+                "type": "path",
+                "description": "The cart identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific shopping cart."
+        },
+        {
+          "info": {
+            "name": "Update Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts/:cartId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "cartId",
+                "value": "",
+                "type": "path",
+                "description": "The cart identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing shopping cart."
+        },
+        {
+          "info": {
+            "name": "Checkout Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts/:cartId/checkout",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "cartId",
+                "value": "",
+                "type": "path",
+                "description": "The cart identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a shopping cart to create an order."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Cart Items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Cart Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts/:cartId/items",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "cartId",
+                "value": "",
+                "type": "path",
+                "description": "The cart identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve all items in a shopping cart."
+        },
+        {
+          "info": {
+            "name": "Add Cart Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts/:cartId/items",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "cartId",
+                "value": "",
+                "type": "path",
+                "description": "The cart identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a product to a shopping cart."
+        },
+        {
+          "info": {
+            "name": "Get Cart Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts/:cartId/items/:itemId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "cartId",
+                "value": "",
+                "type": "path",
+                "description": "The cart identifier."
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The cart item identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific cart item."
+        },
+        {
+          "info": {
+            "name": "Update Cart Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts/:cartId/items/:itemId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "cartId",
+                "value": "",
+                "type": "path",
+                "description": "The cart identifier."
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The cart item identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update quantity or configuration of a cart item."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Cloud Providers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Cloud Provider Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/customers/:customerId/cloudProviders",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The customer account identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new cloud provider account for a customer."
+        },
+        {
+          "info": {
+            "name": "Get Cloud Provider Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/customers/:customerId/cloudProviders/:providerId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The customer account identifier."
+              },
+              {
+                "name": "providerId",
+                "value": "",
+                "type": "path",
+                "description": "The cloud provider account identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve a specific cloud provider account for a customer."
+        },
+        {
+          "info": {
+            "name": "Link Cloud Provider Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/customers/:customerId/cloudProviders/:providerId/link",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The customer account identifier."
+              },
+              {
+                "name": "providerId",
+                "value": "",
+                "type": "path",
+                "description": "The cloud provider account identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Link an existing cloud provider account to a customer."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Provisioning Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Provisioning Templates by Vendor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/provisioning/vendor/:vendorId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "vendorId",
+                "value": "",
+                "type": "path",
+                "description": "The vendor identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve provisioning templates for a specific vendor."
+        },
+        {
+          "info": {
+            "name": "Get Provisioning Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/provisioning/template/:templateId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "path",
+                "description": "The provisioning template identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve a specific provisioning template by identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/reports",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve all available reports for the account."
+        },
+        {
+          "info": {
+            "name": "Get Reports Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/reports/metadata",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve metadata about all available reports including schema and filters."
+        },
+        {
+          "info": {
+            "name": "Get Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/reports/:reportId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path",
+                "description": "The report identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific report."
+        },
+        {
+          "info": {
+            "name": "Get Report Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/reports/:reportId/data",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path",
+                "description": "The report identifier."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter data by start date (YYYY-MM-DD)."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter data by end date (YYYY-MM-DD)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve data records for a specific report."
+        },
+        {
+          "info": {
+            "name": "Export Report Data as CSV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/reports/:reportId/data/csv",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path",
+                "description": "The report identifier."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Export report data as a CSV file download."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
