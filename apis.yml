@@ -44,7 +44,7 @@ apis:
       - type: JSONSchema
         url: >-
           https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/json-schema/streamone-ion-customer-schema.json
-      - type: NaftikoPCapabilities
+      - type: X-NaftikoPCapabilities
         url: >-
           https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/capabilities/cloud-distribution.yaml
     contact:
