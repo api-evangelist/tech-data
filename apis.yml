@@ -70,6 +70,8 @@ apis:
       - type: Website
         url: https://www.tdsynnex.com/na/us/digital-bridge/
 common:
+  - type: AgenticAccess
+    url: agentic-access/tech-data-agentic-access.yml
   - type: DomainSecurity
     url: security/tech-data-domain-security.yml
   - type: Authentication
