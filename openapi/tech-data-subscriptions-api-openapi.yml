@@ -1,0 +1,165 @@
+openapi: 3.1.0
+info:
+  title: TD SYNNEX StreamOne Ion Authentication Subscriptions API
+  description: The StreamOne Ion API provides reseller partners with programmatic access to TD SYNNEX's cloud distribution platform. Partners can manage end customers, browse product catalogs, create and manage orders, handle subscriptions, configure cloud provider accounts, manage shopping carts, and access billing reports. The API supports multi-vendor cloud management across Microsoft, Google, and AWS through a unified interface.
+  version: v3
+  contact:
+    name: TD SYNNEX StreamOne Ion
+    url: https://docs.streamone.cloud/
+  license:
+    name: TD SYNNEX Terms of Service
+    url: https://eu.tdsynnex.com/CatAdminHtmlContentEditor/uploads/Country/COM/NEW%20Terms-and-Conditions/StreamOne/Partner%20API%20Service%20Specification%20Addendum%20to%20ION%20Platform%20Agreement.pdf
+servers:
+- url: https://ion.tdsynnex.com/api
+  description: TD SYNNEX StreamOne Ion Production
+security:
+- BearerAuth: []
+tags:
+- name: Subscriptions
+  description: Customer subscription management
+paths:
+  /v3/accounts/{accountId}/customers/{customerId}/subscriptions:
+    get:
+      operationId: listCustomerSubscriptions
+      summary: List Customer Subscriptions
+      description: Retrieve all active subscriptions for a specific customer.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/customerId'
+      responses:
+        '200':
+          description: List of subscriptions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v3/accounts/{accountId}/customers/{customerId}/subscriptions/{subscriptionId}:
+    get:
+      operationId: getCustomerSubscription
+      summary: Get Customer Subscription
+      description: Retrieve details for a specific customer subscription.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/customerId'
+      - name: subscriptionId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique subscription identifier.
+      responses:
+        '200':
+          description: Subscription details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Subscription:
+      type: object
+      properties:
+        id:
+          type: string
+        customerId:
+          type: string
+        productId:
+          type: string
+        productName:
+          type: string
+        status:
+          type: string
+          enum:
+          - Active
+          - Suspended
+          - Cancelled
+          - Expired
+        quantity:
+          type: integer
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        renewalDate:
+          type: string
+          format: date
+        billingPeriod:
+          type: string
+    SubscriptionList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        totalRecords:
+          type: integer
+        totalPages:
+          type: integer
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - invalid or expired token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reseller account identifier.
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The customer account identifier.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token obtained via the /oauth/token endpoint.

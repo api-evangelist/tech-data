@@ -1,0 +1,190 @@
+openapi: 3.1.0
+info:
+  title: TD SYNNEX StreamOne Ion Authentication Cloud Providers API
+  description: The StreamOne Ion API provides reseller partners with programmatic access to TD SYNNEX's cloud distribution platform. Partners can manage end customers, browse product catalogs, create and manage orders, handle subscriptions, configure cloud provider accounts, manage shopping carts, and access billing reports. The API supports multi-vendor cloud management across Microsoft, Google, and AWS through a unified interface.
+  version: v3
+  contact:
+    name: TD SYNNEX StreamOne Ion
+    url: https://docs.streamone.cloud/
+  license:
+    name: TD SYNNEX Terms of Service
+    url: https://eu.tdsynnex.com/CatAdminHtmlContentEditor/uploads/Country/COM/NEW%20Terms-and-Conditions/StreamOne/Partner%20API%20Service%20Specification%20Addendum%20to%20ION%20Platform%20Agreement.pdf
+servers:
+- url: https://ion.tdsynnex.com/api
+  description: TD SYNNEX StreamOne Ion Production
+security:
+- BearerAuth: []
+tags:
+- name: Cloud Providers
+  description: Customer cloud provider account management
+paths:
+  /v3/accounts/{accountId}/customers/{customerId}/cloudProviders:
+    post:
+      operationId: createCloudProvider
+      summary: Create Cloud Provider Account
+      description: Create a new cloud provider account for a customer.
+      tags:
+      - Cloud Providers
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/customerId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloudProviderCreate'
+      responses:
+        '201':
+          description: Cloud provider account created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudProvider'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v3/accounts/{accountId}/customers/{customerId}/cloudProviders/{providerId}:
+    get:
+      operationId: getCloudProvider
+      summary: Get Cloud Provider Account
+      description: Retrieve a specific cloud provider account for a customer.
+      tags:
+      - Cloud Providers
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/customerId'
+      - name: providerId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The cloud provider account identifier.
+      responses:
+        '200':
+          description: Cloud provider account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudProvider'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v3/accounts/{accountId}/customers/{customerId}/cloudProviders/{providerId}/link:
+    post:
+      operationId: linkCloudProvider
+      summary: Link Cloud Provider Account
+      description: Link an existing cloud provider account to a customer.
+      tags:
+      - Cloud Providers
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/customerId'
+      - name: providerId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The cloud provider account identifier.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                externalId:
+                  type: string
+                  description: External cloud account identifier.
+      responses:
+        '200':
+          description: Cloud provider linked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudProvider'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    CloudProviderCreate:
+      type: object
+      required:
+      - provider
+      properties:
+        provider:
+          type: string
+          enum:
+          - Microsoft
+          - Google
+          - AWS
+        externalId:
+          type: string
+    CloudProvider:
+      type: object
+      properties:
+        id:
+          type: string
+        provider:
+          type: string
+        externalId:
+          type: string
+        status:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - invalid or expired token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reseller account identifier.
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The customer account identifier.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token obtained via the /oauth/token endpoint.

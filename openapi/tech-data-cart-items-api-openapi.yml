@@ -1,0 +1,213 @@
+openapi: 3.1.0
+info:
+  title: TD SYNNEX StreamOne Ion Authentication Cart Items API
+  description: The StreamOne Ion API provides reseller partners with programmatic access to TD SYNNEX's cloud distribution platform. Partners can manage end customers, browse product catalogs, create and manage orders, handle subscriptions, configure cloud provider accounts, manage shopping carts, and access billing reports. The API supports multi-vendor cloud management across Microsoft, Google, and AWS through a unified interface.
+  version: v3
+  contact:
+    name: TD SYNNEX StreamOne Ion
+    url: https://docs.streamone.cloud/
+  license:
+    name: TD SYNNEX Terms of Service
+    url: https://eu.tdsynnex.com/CatAdminHtmlContentEditor/uploads/Country/COM/NEW%20Terms-and-Conditions/StreamOne/Partner%20API%20Service%20Specification%20Addendum%20to%20ION%20Platform%20Agreement.pdf
+servers:
+- url: https://ion.tdsynnex.com/api
+  description: TD SYNNEX StreamOne Ion Production
+security:
+- BearerAuth: []
+tags:
+- name: Cart Items
+  description: Cart line item management
+paths:
+  /v3/accounts/{accountId}/carts/{cartId}/items:
+    get:
+      operationId: listCartItems
+      summary: List Cart Items
+      description: Retrieve all items in a shopping cart.
+      tags:
+      - Cart Items
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/cartId'
+      responses:
+        '200':
+          description: List of cart items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CartItem'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: addCartItem
+      summary: Add Cart Item
+      description: Add a product to a shopping cart.
+      tags:
+      - Cart Items
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/cartId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartItemCreate'
+      responses:
+        '201':
+          description: Cart item added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v3/accounts/{accountId}/carts/{cartId}/items/{itemId}:
+    get:
+      operationId: getCartItem
+      summary: Get Cart Item
+      description: Retrieve details for a specific cart item.
+      tags:
+      - Cart Items
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/cartId'
+      - $ref: '#/components/parameters/itemId'
+      responses:
+        '200':
+          description: Cart item details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartItem'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateCartItem
+      summary: Update Cart Item
+      description: Update quantity or configuration of a cart item.
+      tags:
+      - Cart Items
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/cartId'
+      - $ref: '#/components/parameters/itemId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartItemUpdate'
+      responses:
+        '200':
+          description: Cart item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    CartItem:
+      type: object
+      properties:
+        id:
+          type: string
+        cartId:
+          type: string
+        productId:
+          type: string
+        productName:
+          type: string
+        quantity:
+          type: integer
+        unitPrice:
+          type: number
+          format: float
+        totalPrice:
+          type: number
+          format: float
+    CartItemUpdate:
+      type: object
+      properties:
+        quantity:
+          type: integer
+    CartItemCreate:
+      type: object
+      required:
+      - productId
+      - quantity
+      properties:
+        productId:
+          type: string
+        quantity:
+          type: integer
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
+  responses:
+    Unauthorized:
+      description: Unauthorized - invalid or expired token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reseller account identifier.
+    itemId:
+      name: itemId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The cart item identifier.
+    cartId:
+      name: cartId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The cart identifier.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token obtained via the /oauth/token endpoint.

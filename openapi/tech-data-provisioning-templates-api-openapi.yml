@@ -1,0 +1,137 @@
+openapi: 3.1.0
+info:
+  title: TD SYNNEX StreamOne Ion Authentication Provisioning Templates API
+  description: The StreamOne Ion API provides reseller partners with programmatic access to TD SYNNEX's cloud distribution platform. Partners can manage end customers, browse product catalogs, create and manage orders, handle subscriptions, configure cloud provider accounts, manage shopping carts, and access billing reports. The API supports multi-vendor cloud management across Microsoft, Google, and AWS through a unified interface.
+  version: v3
+  contact:
+    name: TD SYNNEX StreamOne Ion
+    url: https://docs.streamone.cloud/
+  license:
+    name: TD SYNNEX Terms of Service
+    url: https://eu.tdsynnex.com/CatAdminHtmlContentEditor/uploads/Country/COM/NEW%20Terms-and-Conditions/StreamOne/Partner%20API%20Service%20Specification%20Addendum%20to%20ION%20Platform%20Agreement.pdf
+servers:
+- url: https://ion.tdsynnex.com/api
+  description: TD SYNNEX StreamOne Ion Production
+security:
+- BearerAuth: []
+tags:
+- name: Provisioning Templates
+  description: Vendor provisioning template retrieval
+paths:
+  /v3/accounts/{accountId}/provisioning/vendor/{vendorId}:
+    get:
+      operationId: getProvisioningByVendor
+      summary: Get Provisioning Templates by Vendor
+      description: Retrieve provisioning templates for a specific vendor.
+      tags:
+      - Provisioning Templates
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - name: vendorId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The vendor identifier.
+      responses:
+        '200':
+          description: Provisioning templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProvisioningTemplate'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v3/accounts/{accountId}/provisioning/template/{templateId}:
+    get:
+      operationId: getProvisioningTemplate
+      summary: Get Provisioning Template
+      description: Retrieve a specific provisioning template by identifier.
+      tags:
+      - Provisioning Templates
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - name: templateId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The provisioning template identifier.
+      responses:
+        '200':
+          description: Provisioning template details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvisioningTemplate'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - invalid or expired token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
+    ProvisioningTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+        vendorId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+              required:
+                type: boolean
+              description:
+                type: string
+  parameters:
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reseller account identifier.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token obtained via the /oauth/token endpoint.
