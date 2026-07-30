@@ -1,4 +1,18 @@
 aid: tech-data
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/tech-data.png
 name: Tech Data
 description: >-
   Tech Data (now TD SYNNEX) is one of the world's largest IT distributors and solutions aggregators, serving as an
@@ -17,58 +31,225 @@ tags:
   - Partner
   - Fortune 500
 apis:
-  - aid: tech-data:streamone-ion-api
-    name: TD SYNNEX StreamOne Ion API
-    description: >-
-      The StreamOne Ion API provides reseller partners with programmatic access to TD SYNNEX's cloud distribution
-      platform. Partners can manage end customers, browse product catalogs, create and manage orders, handle
-      subscriptions, configure cloud provider accounts, and access billing reports. The API supports multi-vendor cloud
-      management across Microsoft, Google, and AWS through a unified interface. Authentication uses OAuth 2.0 with
-      refresh token exchange.
-    humanURL: https://docs.streamone.cloud/
-    baseURL: https://ion.tdsynnex.com/api/v3
-    tags:
-      - Cloud
-      - Distribution
-      - E-Commerce
-      - OAuth
-      - Partner
-      - Reseller
-    properties:
-      - type: Documentation
-        url: https://docs.streamone.cloud/
-      - type: Website
-        url: https://www.tdsynnex.com/ion/api/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/openapi/streamone-ion-openapi.yml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/json-schema/streamone-ion-customer-schema.json
-      - type: X-NaftikoPCapabilities
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/capabilities/cloud-distribution.yaml
-    contact:
-      - type: Website
-        url: https://ion.tdsynnex.com/
-  - aid: tech-data:digital-bridge-api
-    name: TD SYNNEX Digital Bridge API
-    description: >-
-      Digital Bridge is TD SYNNEX's integration platform providing enterprise-grade REST APIs and pre-built connectors.
-      Engineering teams get direct access to APIs for products, pricing, orders, renewals, and cloud services.
-      Developers can test endpoints via Swagger and integrate live TD SYNNEX data into existing workflows using low-code
-      tools like Make.com and Zapier or by building directly on the APIs.
-    humanURL: https://www.tdsynnex.com/na/us/digital-bridge/
-    baseURL: https://api.tdsynnex.com
-    tags:
-      - Cloud
-      - Distribution
-      - Integration
-      - Partner
-    properties:
-      - type: Documentation
-        url: https://www.tdsynnex.com/na/us/digital-bridge/
-      - type: Website
-        url: https://www.tdsynnex.com/na/us/digital-bridge/
+- aid: tech-data:digital-bridge-api
+  name: TD SYNNEX Digital Bridge API
+  description: >-
+    Digital Bridge is TD SYNNEX's integration platform providing enterprise-grade REST APIs and pre-built
+    connectors. Engineering teams get direct access to APIs for products, pricing, orders, renewals, and
+    cloud services. Developers can test endpoints via Swagger and integrate live TD SYNNEX data into existing
+    workflows using low-code tools like Make.com and Zapier or by building directly on the APIs.
+  humanURL: https://www.tdsynnex.com/na/us/digital-bridge/
+  baseURL: https://api.tdsynnex.com
+  tags:
+  - Cloud
+  - Distribution
+  - Integration
+  - Partner
+  properties:
+  - type: Documentation
+    url: https://www.tdsynnex.com/na/us/digital-bridge/
+  - type: Website
+    url: https://www.tdsynnex.com/na/us/digital-bridge/
+- aid: tech-data:tech-data-authentication-api
+  name: Tech Data Authentication API
+  description: OAuth 2.0 token management
+  humanURL: https://docs.streamone.cloud/
+  baseURL: https://ion.tdsynnex.com/api/v3
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/tech-data-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamone.cloud/
+  - type: Website
+    url: https://www.tdsynnex.com/ion/api/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/json-schema/streamone-ion-customer-schema.json
+  - type: X-NaftikoPCapabilities
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/capabilities/cloud-distribution.yaml
+- aid: tech-data:tech-data-cart-items-api
+  name: Tech Data Cart Items API
+  description: Cart line item management
+  humanURL: https://docs.streamone.cloud/
+  baseURL: https://ion.tdsynnex.com/api/v3
+  tags:
+  - Cart Items
+  properties:
+  - type: OpenAPI
+    url: openapi/tech-data-cart-items-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamone.cloud/
+  - type: Website
+    url: https://www.tdsynnex.com/ion/api/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/json-schema/streamone-ion-customer-schema.json
+  - type: X-NaftikoPCapabilities
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/capabilities/cloud-distribution.yaml
+- aid: tech-data:tech-data-carts-api
+  name: Tech Data Carts API
+  description: Shopping cart management
+  humanURL: https://docs.streamone.cloud/
+  baseURL: https://ion.tdsynnex.com/api/v3
+  tags:
+  - Carts
+  properties:
+  - type: OpenAPI
+    url: openapi/tech-data-carts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamone.cloud/
+  - type: Website
+    url: https://www.tdsynnex.com/ion/api/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/json-schema/streamone-ion-customer-schema.json
+  - type: X-NaftikoPCapabilities
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/capabilities/cloud-distribution.yaml
+- aid: tech-data:tech-data-cloud-providers-api
+  name: Tech Data Cloud Providers API
+  description: Customer cloud provider account management
+  humanURL: https://docs.streamone.cloud/
+  baseURL: https://ion.tdsynnex.com/api/v3
+  tags:
+  - Cloud Providers
+  properties:
+  - type: OpenAPI
+    url: openapi/tech-data-cloud-providers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamone.cloud/
+  - type: Website
+    url: https://www.tdsynnex.com/ion/api/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/json-schema/streamone-ion-customer-schema.json
+  - type: X-NaftikoPCapabilities
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/capabilities/cloud-distribution.yaml
+- aid: tech-data:tech-data-customers-api
+  name: Tech Data Customers API
+  description: End customer account management
+  humanURL: https://docs.streamone.cloud/
+  baseURL: https://ion.tdsynnex.com/api/v3
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/tech-data-customers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamone.cloud/
+  - type: Website
+    url: https://www.tdsynnex.com/ion/api/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/json-schema/streamone-ion-customer-schema.json
+  - type: X-NaftikoPCapabilities
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/capabilities/cloud-distribution.yaml
+- aid: tech-data:tech-data-orders-api
+  name: Tech Data Orders API
+  description: Order creation, management, and cancellation
+  humanURL: https://docs.streamone.cloud/
+  baseURL: https://ion.tdsynnex.com/api/v3
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/tech-data-orders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamone.cloud/
+  - type: Website
+    url: https://www.tdsynnex.com/ion/api/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/json-schema/streamone-ion-customer-schema.json
+  - type: X-NaftikoPCapabilities
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/capabilities/cloud-distribution.yaml
+- aid: tech-data:tech-data-products-api
+  name: Tech Data Products API
+  description: Product catalog browsing and filtering
+  humanURL: https://docs.streamone.cloud/
+  baseURL: https://ion.tdsynnex.com/api/v3
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/tech-data-products-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamone.cloud/
+  - type: Website
+    url: https://www.tdsynnex.com/ion/api/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/json-schema/streamone-ion-customer-schema.json
+  - type: X-NaftikoPCapabilities
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/capabilities/cloud-distribution.yaml
+- aid: tech-data:tech-data-provisioning-templates-api
+  name: Tech Data Provisioning Templates API
+  description: Vendor provisioning template retrieval
+  humanURL: https://docs.streamone.cloud/
+  baseURL: https://ion.tdsynnex.com/api/v3
+  tags:
+  - Provisioning Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/tech-data-provisioning-templates-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamone.cloud/
+  - type: Website
+    url: https://www.tdsynnex.com/ion/api/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/json-schema/streamone-ion-customer-schema.json
+  - type: X-NaftikoPCapabilities
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/capabilities/cloud-distribution.yaml
+- aid: tech-data:tech-data-reports-api
+  name: Tech Data Reports API
+  description: Billing and business intelligence reports
+  humanURL: https://docs.streamone.cloud/
+  baseURL: https://ion.tdsynnex.com/api/v3
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/tech-data-reports-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamone.cloud/
+  - type: Website
+    url: https://www.tdsynnex.com/ion/api/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/json-schema/streamone-ion-customer-schema.json
+  - type: X-NaftikoPCapabilities
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/capabilities/cloud-distribution.yaml
+- aid: tech-data:tech-data-subscriptions-api
+  name: Tech Data Subscriptions API
+  description: Customer subscription management
+  humanURL: https://docs.streamone.cloud/
+  baseURL: https://ion.tdsynnex.com/api/v3
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/tech-data-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamone.cloud/
+  - type: Website
+    url: https://www.tdsynnex.com/ion/api/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/json-schema/streamone-ion-customer-schema.json
+  - type: X-NaftikoPCapabilities
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/capabilities/cloud-distribution.yaml
 common:
   - type: AgenticAccess
     url: agentic-access/tech-data-agentic-access.yml
