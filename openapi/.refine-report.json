@@ -1,0 +1,32 @@
+{
+  "provider": "tech-data",
+  "sources": [
+    "tech-data-authentication-api-openapi.yml",
+    "tech-data-cart-items-api-openapi.yml",
+    "tech-data-carts-api-openapi.yml",
+    "tech-data-cloud-providers-api-openapi.yml",
+    "tech-data-customers-api-openapi.yml",
+    "tech-data-orders-api-openapi.yml",
+    "tech-data-products-api-openapi.yml",
+    "tech-data-provisioning-templates-api-openapi.yml",
+    "tech-data-reports-api-openapi.yml",
+    "tech-data-subscriptions-api-openapi.yml"
+  ],
+  "outputs": [
+    "tech-data-authentication-api-openapi.yml",
+    "tech-data-cart-items-api-openapi.yml",
+    "tech-data-carts-api-openapi.yml",
+    "tech-data-cloud-providers-api-openapi.yml",
+    "tech-data-customers-api-openapi.yml",
+    "tech-data-orders-api-openapi.yml",
+    "tech-data-products-api-openapi.yml",
+    "tech-data-provisioning-templates-api-openapi.yml",
+    "tech-data-reports-api-openapi.yml",
+    "tech-data-subscriptions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
