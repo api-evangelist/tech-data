@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TD SYNNEX StreamOne Ion Authentication Carts API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Carts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Carts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve all shopping carts for the account."
+        },
+        {
+          "info": {
+            "name": "Create Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new shopping cart for the account."
+        },
+        {
+          "info": {
+            "name": "Get Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts/:cartId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "cartId",
+                "value": "",
+                "type": "path",
+                "description": "The cart identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific shopping cart."
+        },
+        {
+          "info": {
+            "name": "Update Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts/:cartId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "cartId",
+                "value": "",
+                "type": "path",
+                "description": "The cart identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing shopping cart."
+        },
+        {
+          "info": {
+            "name": "Checkout Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts/:cartId/checkout",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "cartId",
+                "value": "",
+                "type": "path",
+                "description": "The cart identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a shopping cart to create an order."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

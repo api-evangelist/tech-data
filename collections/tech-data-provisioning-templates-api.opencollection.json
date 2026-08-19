@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TD SYNNEX StreamOne Ion Authentication Provisioning Templates API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Provisioning Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Provisioning Templates by Vendor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/provisioning/vendor/:vendorId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "vendorId",
+                "value": "",
+                "type": "path",
+                "description": "The vendor identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve provisioning templates for a specific vendor."
+        },
+        {
+          "info": {
+            "name": "Get Provisioning Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/provisioning/template/:templateId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "path",
+                "description": "The provisioning template identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve a specific provisioning template by identifier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

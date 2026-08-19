@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TD SYNNEX StreamOne Ion Authentication Cart Items API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cart Items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Cart Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts/:cartId/items",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "cartId",
+                "value": "",
+                "type": "path",
+                "description": "The cart identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve all items in a shopping cart."
+        },
+        {
+          "info": {
+            "name": "Add Cart Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts/:cartId/items",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "cartId",
+                "value": "",
+                "type": "path",
+                "description": "The cart identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a product to a shopping cart."
+        },
+        {
+          "info": {
+            "name": "Get Cart Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts/:cartId/items/:itemId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "cartId",
+                "value": "",
+                "type": "path",
+                "description": "The cart identifier."
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The cart item identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific cart item."
+        },
+        {
+          "info": {
+            "name": "Update Cart Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ion.tdsynnex.com/api/v3/accounts/:accountId/carts/:cartId/items/:itemId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The reseller account identifier."
+              },
+              {
+                "name": "cartId",
+                "value": "",
+                "type": "path",
+                "description": "The cart identifier."
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The cart item identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update quantity or configuration of a cart item."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
