@@ -271,6 +271,9 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/capabilities/cloud-distribution.yaml
 common:
+  - type: CapabilityMap
+    url: capabilities/tech-data-capability-edges.yml
+    name: Tech Data Business Capability Map
   - type: AgenticAccess
     url: agentic-access/tech-data-agentic-access.yml
   - type: DomainSecurity
