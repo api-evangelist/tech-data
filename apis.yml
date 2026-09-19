@@ -41,6 +41,12 @@ tags:
   - Cloud
   - Distribution
   - Information Technology
+  - Partners
+  - Fortune 500
+tags_raw:
+  - Cloud
+  - Distribution
+  - Information Technology
   - Partner
   - Fortune 500
 apis:
@@ -54,6 +60,11 @@ apis:
   humanURL: https://www.tdsynnex.com/na/us/digital-bridge/
   baseURL: https://api.tdsynnex.com
   tags:
+  - Cloud
+  - Distribution
+  - Integration
+  - Partners
+  tags_raw:
   - Cloud
   - Distribution
   - Integration
