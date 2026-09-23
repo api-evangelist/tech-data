@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: TD SYNNEX StreamOne Ion Authentication Cart Items API
+  title: TD SYNNEX StreamOne Ion Cart Items API
   description: The StreamOne Ion API provides reseller partners with programmatic access to TD SYNNEX's cloud distribution platform. Partners can manage end customers, browse product catalogs, create and manage orders, handle subscriptions, configure cloud provider accounts, manage shopping carts, and access billing reports. The API supports multi-vendor cloud management across Microsoft, Google, and AWS through a unified interface.
   version: v3
   contact:
@@ -119,6 +119,28 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    itemId:
+      name: itemId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The cart item identifier.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reseller account identifier.
+    cartId:
+      name: cartId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The cart identifier.
   schemas:
     CartItem:
       type: object
@@ -139,6 +161,17 @@ components:
         totalPrice:
           type: number
           format: float
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
     CartItemUpdate:
       type: object
       properties:
@@ -154,20 +187,9 @@ components:
           type: string
         quantity:
           type: integer
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: string
   responses:
-    Unauthorized:
-      description: Unauthorized - invalid or expired token
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
@@ -178,34 +200,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
+    Unauthorized:
+      description: Unauthorized - invalid or expired token
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The reseller account identifier.
-    itemId:
-      name: itemId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The cart item identifier.
-    cartId:
-      name: cartId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The cart identifier.
   securitySchemes:
     BearerAuth:
       type: http

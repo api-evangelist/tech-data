@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: TD SYNNEX StreamOne Ion Authentication Products API
+  title: TD SYNNEX StreamOne Ion Products API
   description: The StreamOne Ion API provides reseller partners with programmatic access to TD SYNNEX's cloud distribution platform. Partners can manage end customers, browse product catalogs, create and manage orders, handle subscriptions, configure cloud provider accounts, manage shopping carts, and access billing reports. The API supports multi-vendor cloud management across Microsoft, Google, and AWS through a unified interface.
   version: v3
   contact:
@@ -120,28 +120,15 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Pagination:
+    ProductList:
       type: object
       properties:
-        page:
-          type: integer
-        pageSize:
-          type: integer
-        totalRecords:
-          type: integer
-        totalPages:
-          type: integer
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
+        data:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/Product'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
     Product:
       type: object
       properties:
@@ -170,15 +157,36 @@ components:
           - Monthly
           - Annual
           - One-Time
-    ProductList:
+    Error:
       type: object
       properties:
-        data:
+        code:
+          type: string
+        message:
+          type: string
+        details:
           type: array
           items:
-            $ref: '#/components/schemas/Product'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
+            type: string
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        totalRecords:
+          type: integer
+        totalPages:
+          type: integer
+  parameters:
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reseller account identifier.
   responses:
     NotFound:
       description: Resource not found
@@ -192,14 +200,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The reseller account identifier.
   securitySchemes:
     BearerAuth:
       type: http

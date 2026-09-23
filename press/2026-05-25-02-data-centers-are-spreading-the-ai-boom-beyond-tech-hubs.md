@@ -1,7 +1,9 @@
 ---
 title: Data Centers are Spreading the AI Boom Beyond Tech Hubs
 url: https://www.reveliolabs.com/news/tech/data-centers-are-spreading-the-ai-boom-beyond-tech-hubs/
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Tech Data" press release artificial intelligence'
 position: 2
 source: serpapi-google

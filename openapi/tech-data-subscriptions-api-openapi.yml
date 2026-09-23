@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: TD SYNNEX StreamOne Ion Authentication Subscriptions API
+  title: TD SYNNEX StreamOne Ion Subscriptions API
   description: The StreamOne Ion API provides reseller partners with programmatic access to TD SYNNEX's cloud distribution platform. Partners can manage end customers, browse product catalogs, create and manage orders, handle subscriptions, configure cloud provider accounts, manage shopping carts, and access billing reports. The API supports multi-vendor cloud management across Microsoft, Google, and AWS through a unified interface.
   version: v3
   contact:
@@ -67,7 +67,33 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The customer account identifier.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reseller account identifier.
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
     Subscription:
       type: object
       properties:
@@ -119,17 +145,6 @@ components:
           type: integer
         totalPages:
           type: integer
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: string
   responses:
     NotFound:
       description: Resource not found
@@ -143,21 +158,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The reseller account identifier.
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The customer account identifier.
   securitySchemes:
     BearerAuth:
       type: http
