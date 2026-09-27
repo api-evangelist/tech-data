@@ -119,29 +119,41 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    itemId:
-      name: itemId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The cart item identifier.
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The reseller account identifier.
-    cartId:
-      name: cartId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The cart identifier.
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - invalid or expired token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    CartItemUpdate:
+      type: object
+      properties:
+        quantity:
+          type: integer
+    CartItemCreate:
+      type: object
+      required:
+      - productId
+      - quantity
+      properties:
+        productId:
+          type: string
+        quantity:
+          type: integer
     CartItem:
       type: object
       properties:
@@ -172,40 +184,28 @@ components:
           type: array
           items:
             type: string
-    CartItemUpdate:
-      type: object
-      properties:
-        quantity:
-          type: integer
-    CartItemCreate:
-      type: object
-      required:
-      - productId
-      - quantity
-      properties:
-        productId:
-          type: string
-        quantity:
-          type: integer
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized - invalid or expired token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    itemId:
+      name: itemId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The cart item identifier.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reseller account identifier.
+    cartId:
+      name: cartId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The cart identifier.
   securitySchemes:
     BearerAuth:
       type: http
