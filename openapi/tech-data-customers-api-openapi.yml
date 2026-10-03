@@ -153,47 +153,41 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden - insufficient permissions
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized - invalid or expired token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    CloudProfile:
+    CustomerList:
       type: object
       properties:
-        id:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    CustomerUpdate:
+      type: object
+      properties:
+        name:
           type: string
-        provider:
+        email:
           type: string
-          enum:
-          - Microsoft
-          - Google
-          - AWS
-        externalId:
+          format: email
+        phone:
           type: string
         status:
           type: string
+        address:
+          $ref: '#/components/schemas/Address'
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        totalRecords:
+          type: integer
+        totalPages:
+          type: integer
     CustomerCreate:
       type: object
       required:
@@ -209,29 +203,32 @@ components:
           type: string
         address:
           $ref: '#/components/schemas/Address'
-    CustomerUpdate:
+    CloudProfile:
       type: object
       properties:
-        name:
+        id:
           type: string
-        email:
+        provider:
           type: string
-          format: email
-        phone:
+          enum:
+          - Microsoft
+          - Google
+          - AWS
+        externalId:
           type: string
         status:
           type: string
-        address:
-          $ref: '#/components/schemas/Address'
-    CustomerList:
+    Error:
       type: object
       properties:
-        data:
+        code:
+          type: string
+        message:
+          type: string
+        details:
           type: array
           items:
-            $ref: '#/components/schemas/Customer'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
+            type: string
     Address:
       type: object
       properties:
@@ -245,28 +242,6 @@ components:
           type: string
         country:
           type: string
-    Pagination:
-      type: object
-      properties:
-        page:
-          type: integer
-        pageSize:
-          type: integer
-        totalRecords:
-          type: integer
-        totalPages:
-          type: integer
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: string
     Customer:
       type: object
       properties:
@@ -291,6 +266,31 @@ components:
           format: date-time
         address:
           $ref: '#/components/schemas/Address'
+  responses:
+    Forbidden:
+      description: Forbidden - insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - invalid or expired token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     accountId:
       name: accountId

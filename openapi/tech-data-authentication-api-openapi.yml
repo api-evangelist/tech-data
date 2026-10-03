@@ -65,6 +65,17 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
     TokenResponse:
       type: object
       properties:
@@ -81,17 +92,6 @@ components:
         refresh_token:
           type: string
           description: New refresh token for subsequent token requests.
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: string
   securitySchemes:
     BearerAuth:
       type: http

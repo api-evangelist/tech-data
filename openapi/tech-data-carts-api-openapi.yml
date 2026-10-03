@@ -146,26 +146,54 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized - invalid or expired token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    cartId:
+      name: cartId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The cart identifier.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reseller account identifier.
   schemas:
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        accountId:
+          type: string
+        customerId:
+          type: string
+        status:
+          type: string
+          enum:
+          - Draft
+          - Submitted
+          - Processing
+          - Completed
+          - Cancelled
+        total:
+          type: number
+          format: float
+        currency:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
     Cart:
       type: object
       properties:
@@ -210,6 +238,17 @@ components:
           type: string
         notes:
           type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
     OrderItem:
       type: object
       properties:
@@ -227,64 +266,25 @@ components:
         totalPrice:
           type: number
           format: float
-    Order:
-      type: object
-      properties:
-        id:
-          type: string
-        accountId:
-          type: string
-        customerId:
-          type: string
-        status:
-          type: string
-          enum:
-          - Draft
-          - Submitted
-          - Processing
-          - Completed
-          - Cancelled
-        total:
-          type: number
-          format: float
-        currency:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderItem'
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: string
-  parameters:
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The reseller account identifier.
-    cartId:
-      name: cartId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The cart identifier.
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - invalid or expired token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     BearerAuth:
       type: http

@@ -119,37 +119,18 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized - invalid or expired token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The reseller account identifier.
   schemas:
-    ProductList:
+    Pagination:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Product'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        totalRecords:
+          type: integer
+        totalPages:
+          type: integer
     Product:
       type: object
       properties:
@@ -178,17 +159,6 @@ components:
           - Monthly
           - Annual
           - One-Time
-    Pagination:
-      type: object
-      properties:
-        page:
-          type: integer
-        pageSize:
-          type: integer
-        totalRecords:
-          type: integer
-        totalPages:
-          type: integer
     Error:
       type: object
       properties:
@@ -200,6 +170,36 @@ components:
           type: array
           items:
             type: string
+    ProductList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+  parameters:
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reseller account identifier.
+  responses:
+    Unauthorized:
+      description: Unauthorized - invalid or expired token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     BearerAuth:
       type: http

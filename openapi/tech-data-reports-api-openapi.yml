@@ -155,20 +155,31 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized - invalid or expired token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        totalRecords:
+          type: integer
+        totalPages:
+          type: integer
+    Report:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        frequency:
+          type: string
     Error:
       type: object
       properties:
@@ -180,16 +191,6 @@ components:
           type: array
           items:
             type: string
-    ReportData:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        pagination:
-          $ref: '#/components/schemas/Pagination'
     ReportMetadata:
       type: object
       properties:
@@ -217,38 +218,17 @@ components:
                 type: string
               type:
                 type: string
-    Report:
+    ReportData:
       type: object
       properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        category:
-          type: string
-        frequency:
-          type: string
-    Pagination:
-      type: object
-      properties:
-        page:
-          type: integer
-        pageSize:
-          type: integer
-        totalRecords:
-          type: integer
-        totalPages:
-          type: integer
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        pagination:
+          $ref: '#/components/schemas/Pagination'
   parameters:
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The reseller account identifier.
     reportId:
       name: reportId
       in: path
@@ -256,6 +236,26 @@ components:
       schema:
         type: string
       description: The report identifier.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reseller account identifier.
+  responses:
+    Unauthorized:
+      description: Unauthorized - invalid or expired token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     BearerAuth:
       type: http
