@@ -147,13 +147,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   parameters:
-    cartId:
-      name: cartId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The cart identifier.
     accountId:
       name: accountId
       in: path
@@ -161,7 +154,86 @@ components:
       schema:
         type: string
       description: The reseller account identifier.
+    cartId:
+      name: cartId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The cart identifier.
   schemas:
+    CartCreate:
+      type: object
+      required:
+      - customerId
+      properties:
+        customerId:
+          type: string
+        notes:
+          type: string
+    CartUpdate:
+      type: object
+      properties:
+        notes:
+          type: string
+        status:
+          type: string
+    Cart:
+      type: object
+      properties:
+        id:
+          type: string
+        accountId:
+          type: string
+        customerId:
+          type: string
+        status:
+          type: string
+          enum:
+          - Active
+          - Checked Out
+          - Expired
+        total:
+          type: number
+          format: float
+        currency:
+          type: string
+        itemCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
+    OrderItem:
+      type: object
+      properties:
+        id:
+          type: string
+        productId:
+          type: string
+        productName:
+          type: string
+        quantity:
+          type: integer
+        unitPrice:
+          type: number
+          format: float
+        totalPrice:
+          type: number
+          format: float
     Order:
       type: object
       properties:
@@ -194,85 +266,7 @@ components:
         updatedAt:
           type: string
           format: date-time
-    Cart:
-      type: object
-      properties:
-        id:
-          type: string
-        accountId:
-          type: string
-        customerId:
-          type: string
-        status:
-          type: string
-          enum:
-          - Active
-          - Checked Out
-          - Expired
-        total:
-          type: number
-          format: float
-        currency:
-          type: string
-        itemCount:
-          type: integer
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-    CartUpdate:
-      type: object
-      properties:
-        notes:
-          type: string
-        status:
-          type: string
-    CartCreate:
-      type: object
-      required:
-      - customerId
-      properties:
-        customerId:
-          type: string
-        notes:
-          type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: string
-    OrderItem:
-      type: object
-      properties:
-        id:
-          type: string
-        productId:
-          type: string
-        productName:
-          type: string
-        quantity:
-          type: integer
-        unitPrice:
-          type: number
-          format: float
-        totalPrice:
-          type: number
-          format: float
   responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Unauthorized - invalid or expired token
       content:
@@ -281,6 +275,12 @@ components:
             $ref: '#/components/schemas/Error'
     NotFound:
       description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:

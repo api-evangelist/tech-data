@@ -110,6 +110,21 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reseller account identifier.
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The customer account identifier.
   schemas:
     CloudProviderCreate:
       type: object
@@ -150,12 +165,6 @@ components:
           items:
             type: string
   responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Unauthorized - invalid or expired token
       content:
@@ -168,21 +177,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The reseller account identifier.
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The customer account identifier.
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     BearerAuth:
       type: http

@@ -67,18 +67,31 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reseller account identifier.
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The customer account identifier.
   schemas:
-    Pagination:
+    SubscriptionList:
       type: object
       properties:
-        page:
-          type: integer
-        pageSize:
-          type: integer
-        totalRecords:
-          type: integer
-        totalPages:
-          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
     Subscription:
       type: object
       properties:
@@ -110,6 +123,17 @@ components:
           format: date
         billingPeriod:
           type: string
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        totalRecords:
+          type: integer
+        totalPages:
+          type: integer
     Error:
       type: object
       properties:
@@ -121,30 +145,6 @@ components:
           type: array
           items:
             type: string
-    SubscriptionList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Subscription'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-  parameters:
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The reseller account identifier.
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The customer account identifier.
   responses:
     Unauthorized:
       description: Unauthorized - invalid or expired token

@@ -155,18 +155,22 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reseller account identifier.
+    reportId:
+      name: reportId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The report identifier.
   schemas:
-    Pagination:
-      type: object
-      properties:
-        page:
-          type: integer
-        pageSize:
-          type: integer
-        totalRecords:
-          type: integer
-        totalPages:
-          type: integer
     Report:
       type: object
       properties:
@@ -180,17 +184,27 @@ components:
           type: string
         frequency:
           type: string
-    Error:
+    Pagination:
       type: object
       properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        totalRecords:
+          type: integer
+        totalPages:
+          type: integer
+    ReportData:
+      type: object
+      properties:
+        data:
           type: array
           items:
-            type: string
+            type: object
+            additionalProperties: true
+        pagination:
+          $ref: '#/components/schemas/Pagination'
     ReportMetadata:
       type: object
       properties:
@@ -218,31 +232,17 @@ components:
                 type: string
               type:
                 type: string
-    ReportData:
+    Error:
       type: object
       properties:
-        data:
+        code:
+          type: string
+        message:
+          type: string
+        details:
           type: array
           items:
-            type: object
-            additionalProperties: true
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-  parameters:
-    reportId:
-      name: reportId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The report identifier.
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The reseller account identifier.
+            type: string
   responses:
     Unauthorized:
       description: Unauthorized - invalid or expired token
