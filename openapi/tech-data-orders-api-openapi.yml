@@ -173,113 +173,26 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The reseller account identifier.
-    orderId:
-      name: orderId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The order identifier.
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The customer account identifier.
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - invalid or expired token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    OrderCreate:
-      type: object
-      required:
-      - customerId
-      - items
-      properties:
-        customerId:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderItemCreate'
-        notes:
-          type: string
-    OrderItemCreate:
-      type: object
-      required:
-      - productId
-      - quantity
-      properties:
-        productId:
-          type: string
-        quantity:
-          type: integer
-        provisioningData:
-          type: object
-          additionalProperties: true
-    Pagination:
-      type: object
-      properties:
-        page:
-          type: integer
-        pageSize:
-          type: integer
-        totalRecords:
-          type: integer
-        totalPages:
-          type: integer
-    OrderUpdate:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderItemCreate'
-        notes:
-          type: string
-    OrderList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: string
-    OrderItem:
-      type: object
-      properties:
-        id:
-          type: string
-        productId:
-          type: string
-        productName:
-          type: string
-        quantity:
-          type: integer
-        unitPrice:
-          type: number
-          format: float
-        totalPrice:
-          type: number
-          format: float
     Order:
       type: object
       properties:
@@ -312,25 +225,112 @@ components:
         updatedAt:
           type: string
           format: date-time
-  responses:
-    Unauthorized:
-      description: Unauthorized - invalid or expired token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    OrderItem:
+      type: object
+      properties:
+        id:
+          type: string
+        productId:
+          type: string
+        productName:
+          type: string
+        quantity:
+          type: integer
+        unitPrice:
+          type: number
+          format: float
+        totalPrice:
+          type: number
+          format: float
+    OrderUpdate:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemCreate'
+        notes:
+          type: string
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        totalRecords:
+          type: integer
+        totalPages:
+          type: integer
+    OrderItemCreate:
+      type: object
+      required:
+      - productId
+      - quantity
+      properties:
+        productId:
+          type: string
+        quantity:
+          type: integer
+        provisioningData:
+          type: object
+          additionalProperties: true
+    OrderList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    OrderCreate:
+      type: object
+      required:
+      - customerId
+      - items
+      properties:
+        customerId:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemCreate'
+        notes:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
+  parameters:
+    orderId:
+      name: orderId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The order identifier.
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The customer account identifier.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reseller account identifier.
   securitySchemes:
     BearerAuth:
       type: http
