@@ -1,4 +1,4 @@
-# Tech Data (tech-data)
+# Tech Data
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,81 +66,175 @@
 
 Tech Data (now TD SYNNEX) is one of the world's largest IT distributors and solutions aggregators, serving as an intermediary between technology vendors and resellers. The company merged with SYNNEX in 2021 to form TD SYNNEX. TD SYNNEX exposes the StreamOne Ion API platform for reseller partners to manage customers, products, orders, subscriptions, and cloud services programmatically. The Digital Bridge platform provides pre-built connectors and enterprise-grade APIs for live pricing, inventory, and order workflows.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/apis.yml)
+**Areas:** Cloud · Distribution · Information Technology · Partners · Fortune 500
 
-## Tags
+## Tech Data on APIs.io
 
-- Cloud
-- Distribution
-- Information Technology
-- Partner
+Everything profiled for Tech Data is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/tech-data/](https://apis.io/providers/tech-data/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (11)
 
-- **Created:** 2026-03-24
-- **Modified:** 2026-05-19
+- [TD SYNNEX Digital Bridge API](https://apis.io/apis/tech-data/digital-bridge-api/) — Digital Bridge is TD SYNNEX's integration platform providing enterprise-grade REST APIs and pre-built connectors. Engineering teams get direct access to…
+- [Tech Data Authentication API](https://apis.io/apis/tech-data/tech-data-authentication-api/) — OAuth 2.0 token management
+- [Tech Data Cart Items API](https://apis.io/apis/tech-data/tech-data-cart-items-api/) — Cart line item management
+- [Tech Data Carts API](https://apis.io/apis/tech-data/tech-data-carts-api/) — Shopping cart management
+- [Tech Data Cloud Providers API](https://apis.io/apis/tech-data/tech-data-cloud-providers-api/) — Customer cloud provider account management
+- [Tech Data Customers API](https://apis.io/apis/tech-data/tech-data-customers-api/) — End customer account management
+- [Tech Data Orders API](https://apis.io/apis/tech-data/tech-data-orders-api/) — Order creation, management, and cancellation
+- [Tech Data Products API](https://apis.io/apis/tech-data/tech-data-products-api/) — Product catalog browsing and filtering
+- [Tech Data Provisioning Templates API](https://apis.io/apis/tech-data/tech-data-provisioning-templates-api/) — Vendor provisioning template retrieval
+- [Tech Data Reports API](https://apis.io/apis/tech-data/tech-data-reports-api/) — Billing and business intelligence reports
+- [Tech Data Subscriptions API](https://apis.io/apis/tech-data/tech-data-subscriptions-api/) — Customer subscription management
 
-## APIs
+### Published properties
 
-### TD SYNNEX StreamOne Ion API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-The StreamOne Ion API provides reseller partners with programmatic access to TD SYNNEX's cloud distribution platform. Partners can manage end customers, browse product catalogs, create and manage orders, handle subscriptions, configure cloud provider accounts, and access billing reports. The API supports multi-vendor cloud management across Microsoft, Google, and AWS through a unified interface. Authentication uses OAuth 2.0 with refresh token exchange.
+#### Agentic access (1)
 
-- **Human URL:** [https://docs.streamone.cloud/](https://docs.streamone.cloud/)
-- **Base URL:** `https://ion.tdsynnex.com/api/v3`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Tech Data Agentic Access](https://apis.io/agentic-access/tech-data/tech-data-agentic-access/)
 
-- Cloud
-- Distribution
-- E-Commerce
-- OAuth
-- Partner
-- Reseller
+#### JSON Schema (3)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://docs.streamone.cloud/)
-- [Website](https://www.tdsynnex.com/ion/api/)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/openapi/streamone-ion-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/json-schema/streamone-ion-customer-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Naftiko P Capabilities](https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/capabilities/cloud-distribution.yaml)
-- [Postman Collection](collections/streamone-ion.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/streamone-ion.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [StreamOne Ion Customer](https://apis.io/schemas/tech-data/streamone-ion-customer/)
+- [StreamOne Ion Order](https://apis.io/schemas/tech-data/streamone-ion-order/)
+- [StreamOne Ion Subscription](https://apis.io/schemas/tech-data/streamone-ion-subscription/)
 
-### TD SYNNEX Digital Bridge API
+#### JSON Structure (2)
 
-Digital Bridge is TD SYNNEX's integration platform providing enterprise-grade REST APIs and pre-built connectors. Engineering teams get direct access to APIs for products, pricing, orders, renewals, and cloud services. Developers can test endpoints via Swagger and integrate live TD SYNNEX data into existing workflows using low-code tools like Make.com and Zapier or by building directly on the APIs.
+Data models expressed in JSON Structure.
 
-- **Human URL:** [https://www.tdsynnex.com/na/us/digital-bridge/](https://www.tdsynnex.com/na/us/digital-bridge/)
-- **Base URL:** `https://api.tdsynnex.com`
+- [Streamone Ion Customer Structure](https://apis.io/json-structure/tech-data/streamone-ion-customer-structure/)
+- [Streamone Ion Order Structure](https://apis.io/json-structure/tech-data/streamone-ion-order-structure/)
 
-#### Tags
+#### JSON-LD (1)
 
-- Cloud
-- Distribution
-- Integration
-- Partner
+Linked-data contexts for the provider's vocabulary.
 
-#### Properties
+- [Tech Data Context](https://apis.io/jsonld/tech-data/tech-data-context/)
 
-- [Documentation](https://www.tdsynnex.com/na/us/digital-bridge/)
-- [Website](https://www.tdsynnex.com/na/us/digital-bridge/)
-- [Postman Collection](collections/streamone-ion.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/streamone-ion.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Vocabulary (1)
 
-## Common Properties
+The provider's domain terms, defined.
+
+- [Tech Data Vocabulary](https://apis.io/vocabularies/tech-data/tech-data-vocabulary/)
+
+#### Examples (2)
+
+Example requests and responses.
+
+- [Streamone Ion Create Order Example](https://apis.io/examples/tech-data/streamone-ion-create-order-example/)
+- [Streamone Ion List Customers Example](https://apis.io/examples/tech-data/streamone-ion-list-customers-example/)
+
+#### Collections (11)
+
+Postman and Open Collection request collections.
+
+- [TD SYNNEX StreamOne Ion API](https://apis.io/collections/tech-data/open-streamone-ion/)
+- [TD SYNNEX StreamOne Ion Authentication API](https://apis.io/collections/tech-data/open-tech-data-authentication-api/)
+- [TD SYNNEX StreamOne Ion Authentication Cart Items API](https://apis.io/collections/tech-data/open-tech-data-cart-items-api/)
+- [TD SYNNEX StreamOne Ion Authentication Carts API](https://apis.io/collections/tech-data/open-tech-data-carts-api/)
+- [TD SYNNEX StreamOne Ion Authentication Cloud Providers API](https://apis.io/collections/tech-data/open-tech-data-cloud-providers-api/)
+- [TD SYNNEX StreamOne Ion Authentication Customers API](https://apis.io/collections/tech-data/open-tech-data-customers-api/)
+- [TD SYNNEX StreamOne Ion Authentication Orders API](https://apis.io/collections/tech-data/open-tech-data-orders-api/)
+- [TD SYNNEX StreamOne Ion Authentication Products API](https://apis.io/collections/tech-data/open-tech-data-products-api/)
+- [TD SYNNEX StreamOne Ion Authentication Provisioning Templates API](https://apis.io/collections/tech-data/open-tech-data-provisioning-templates-api/)
+- [TD SYNNEX StreamOne Ion Authentication Reports API](https://apis.io/collections/tech-data/open-tech-data-reports-api/)
+- [TD SYNNEX StreamOne Ion Authentication Subscriptions API](https://apis.io/collections/tech-data/open-tech-data-subscriptions-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Tech Data — streamone ion rules](https://apis.io/rules/tech-data/streamone-ion-rules/)
+- [Tech Data — jsonschema rules](https://apis.io/rules/tech-data/tech-data-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Tech Data Authentication](https://apis.io/security/tech-data/tech-data-authentication/)
+- [Tech Data Domain Security](https://apis.io/security/tech-data/tech-data-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Tech Data Plans Pricing](https://apis.io/plans/tech-data/tech-data-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Tech Data Rate Limits](https://apis.io/rate-limits/tech-data/tech-data-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Tech Data Finops](https://apis.io/finops/tech-data/tech-data-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.tdsynnex.com)
-- [About](https://www.tdsynnex.com/na/us/about-td-synnex/)
-- [Terms of Service](https://www.tdsynnex.com/na/us/legal/terms-of-use/)
-- [Privacy Policy](https://www.tdsynnex.com/na/us/legal/privacy-notice/)
-- [Login](https://ion.tdsynnex.com/)
-- [LinkedIn](https://www.linkedin.com/company/td-synnex/)
-- [Vocabulary](https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/vocabulary/tech-data-vocabulary.yml)
-- [J S O N L D Context](https://raw.githubusercontent.com/api-evangelist/tech-data/refs/heads/main/json-ld/tech-data-context.jsonld)
+- [Terms of service](https://www.tdsynnex.com/na/us/legal/terms-of-use/)
+- [Privacy policy](https://www.tdsynnex.com/na/us/legal/privacy-notice/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 35.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 61.3 |
+| Contract governance | 27.3 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 21.4 |
+| Access clarity | 14.5 |
+
+**Agent readiness 25.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/tech-data/](https://apis.io/providers/tech-data/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Tech Data: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/tech-data/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
